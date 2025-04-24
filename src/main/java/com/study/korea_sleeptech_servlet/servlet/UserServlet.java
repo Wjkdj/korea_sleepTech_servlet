@@ -20,5 +20,98 @@ package com.study.korea_sleeptech_servlet.servlet;
 * 6) 응답 전달
 * */
 
-public class UserServlet {
+// jakarta.servlet: 서블릿 관련 기본 인터페이스 제공
+import com.study.korea_sleeptech_servlet.dao.UserDao;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+@WebServlet("/") 
+// 서블릿 URL 매핑을 위한 어노테이션
+// : 루트 경로("/")에 매핑되어 모든 요청을 받아 처리
+public class UserServlet extends HttpServlet {
+    private UserDao userDao; // 사용자 데이터 처리를 위한 DAO 객체
+    
+    // cf) 서블릿 생명주기
+    // 1) init()
+    // : 서블릿 생성 시 단 한 번만 호출
+    // - DB 연결, 초기 설정 등에 사용
+
+    // 2) doGet(), doPost()
+    // : 사용자 요청 처리 (실제 비즈니스 로직)
+    
+    // 서블릿 초기화 메서드
+    // : 최초 요청 시 한 번만 요청
+    public void init() {
+        userDao = new UserDao();
+    }
+
+    // GET 요청 처리 메서드
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 현재 요청한 경로(URL 패턴)을 가져옴
+        String action = request.getServletPath();
+
+        try {
+            // URL 경로에 따라 서로 다른 메서드 호출
+            switch (action) {
+                case "/new": // 새 사용자 입력 폼 표시
+                    break;
+                case "/insert": // 새 사용자 정보 저장
+                    break;
+                case "/edit": // "수정 폼 표시"
+                    break;
+                case "/update": // 기존 사용자 정보 수정
+                    break;
+                case "/delete": // 사용자 삭제
+                    break;
+                default: // 사용자 목록 출력 (기본 동작)
+                    break;
+            }
+        } catch (SQLException e) {
+            throw new ServletException(e);
+        }
+    }
+
+    // POST 요청 처리 메서드 (POST 요청을 GET 요청처럼 처리)
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
+    
+    // ==================================================================================================================================
+    // 1. 새 사용자 입력 폼을 보여주는 메서드
+    private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        
+    }
+    
+    // 2. 새로운 사용자 정보를 DB에 삽입하는 코드
+    private void insertUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+
+    }
+    
+    // 3. 기존 사용자 정보 수정 폼을 보여주는 메서드
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+
+    }
+    
+    // 4. 사용자 정보를 업데이트(수정)하는 메서드
+    private void updateUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+
+    }
+    
+    // 5. 사용자 정보를 삭제하는 메서드
+    private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+
+    }
+    
+    // 6. 전체 사용자 목록을 조회하여 보여주는 메서드
+    private void listUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+
+    }
 }
